@@ -18,12 +18,15 @@ public class GestorViajeros {
       String nombre, apellido, dni;
       Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero de viajero: ");
-      try{
+      try {
          numero = in.nextInt();
+         in.nextLine();
       }
       catch (Exception e){
          System.out.println(e.getMessage());
+         System.out.println("Ingrese el numero de viajero: ");
          numero = in.nextInt();
+         in.nextLine();
       }
       finally{}
       System.out.println("Ingrese el DNI del viajero: ");
@@ -33,17 +36,19 @@ public class GestorViajeros {
       System.out.println("Ingrese el apellido del viajero: ");
       apellido = in.nextLine();
       System.out.println("Ingrese las millas del viajero: ");
-      try{
+      try {
          millas = in.nextInt();
+         in.nextLine();
       }
       catch (Exception e){
          System.out.println(e.getMessage());
+         System.out.println("Ingrese las millas del viajero: ");
          millas = in.nextInt();
+         in.nextLine();
       }
       finally{}
       this.grViajeros[this.cantidad] = new Viajero(numero, dni, nombre, apellido, millas);
       this.cantidad++;
-      in.close();
    }
    
    public void mostrarViajero ()
@@ -51,20 +56,21 @@ public class GestorViajeros {
       Integer numero, i;
       Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero del viajero: ");
-      try{
+      try {
          numero = in.nextInt();
+         in.nextLine();
       }
       catch (Exception e){
          System.out.println(e.getMessage());
+         System.out.println("Ingrese el numero del viajero: ");
          numero = in.nextInt();
+         in.nextLine();
       }
       finally{}
       i = this.buscar(numero);
       if (i != -1) {   
          System.out.println(grViajeros[i]);
       }
-
-      in.close();
    }
 
    public Integer buscar(Integer numero)
@@ -87,17 +93,17 @@ public class GestorViajeros {
       System.out.println("Ingrese el numero del viajero: ");
       try {
          numero = in.nextInt();
+         in.nextLine();
       } catch (Exception e) {
-         System.out.println(e.getMessage());
+         System.out.println("Ingrese el numero del viajero: ");
          numero = in.nextInt();
+         in.nextLine();
       } finally {
       }
       i = this.buscar(numero);
       if (i != -1) {
          System.out.println("El viajero: " + grViajeros[i].getNombre() + " tiene :" + grViajeros[i].getMillas() + " millas.");
       }
-
-      in.close();
    }
    
    public void acumularMillas()
@@ -106,13 +112,14 @@ public class GestorViajeros {
       Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero del viajero: ");
       numero = in.nextInt();
+      in.nextLine();
       i = buscar(numero);
       if (i != -1) {
-         System.err.println("Ingrese las millas a acumular: ");
+         System.out.println("Ingrese las millas a acumular: ");
          millas = in.nextInt();
+         in.nextLine();
          grViajeros[i].setMillas(grViajeros[i].getMillas() + millas);
       }
-      in.close();
    }
 
    public void canjearMillas()
@@ -120,18 +127,31 @@ public class GestorViajeros {
       Integer numero, i, millas, aux;
       Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero del viajero: ");
-      numero = in.nextInt();
+      try {
+         numero = in.nextInt();
+         in.nextLine();
+      } catch (Exception e) {
+         System.out.println(e.getMessage());
+         System.out.println("Ingrese el numero del viajero: ");
+         numero = in.nextInt();
+         in.nextLine();
+      }
+      finally {}
       i = buscar(numero);
       if (i != -1) {
-         System.err.println("Ingrese las millas a acumular: ");
+         System.out.println("Ingrese las millas a canjear: ");
          millas = in.nextInt();
+         in.nextLine();
          aux = grViajeros[i].getMillas();
          if (aux >= millas) {
-            millas -= aux;
+            millas = aux - millas;
+            grViajeros[i].setMillas(millas);
+            System.out.println("Millas canjeadas correctamente. Ahora tiene: " + millas + " millas.");
          }
-         grViajeros[i].setMillas(millas);
+         else {
+            System.out.println("No tiene suficientes millas para canjear.");
+         }
       }
-      in.close();
    }
    
    public void mejorViajero() {
@@ -143,6 +163,6 @@ public class GestorViajeros {
             maxI = i;
          }
       }
-      System.out.println("El mejor viajero: " + grViajeros[maxI].getNombre() + " tiene :" + grViajeros[maxI].getMillas() + " millas.");
+      System.out.println("El mejor viajero es: " + grViajeros[maxI].getNombre() + " " + grViajeros[maxI].getApellido() + " tiene :" + grViajeros[maxI].getMillas() + " millas.");
    }
 }
