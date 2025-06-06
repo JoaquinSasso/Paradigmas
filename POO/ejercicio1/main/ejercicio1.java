@@ -25,19 +25,19 @@ public class ejercicio1 {
          }
          switch (opcion) {
             case 1:
-               gestor.cargarViajero();
+               gestor.cargarViajero(in);
                break;
             case 2:
-               gestor.mostrarViajero();
+               gestor.mostrarViajero(in);
                break;
             case 3:
-               gestor.mostrarMillas();
+               gestor.mostrarMillas(in);
                break;
             case 4:
-               gestor.acumularMillas();
+               gestor.acumularMillas(in);
                break;
             case 5:
-               gestor.canjearMillas();
+               gestor.canjearMillas(in);
                break;
             case 6:
                gestor.mejorViajero();

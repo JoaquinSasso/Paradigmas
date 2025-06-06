@@ -12,11 +12,10 @@ public class GestorViajeros {
       this.grViajeros = new Viajero[cant];
    }
    
-   public void cargarViajero ()
+   public void cargarViajero (Scanner in)
    {
       Integer numero, millas;
       String nombre, apellido, dni;
-      Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero de viajero: ");
       try {
          numero = in.nextInt();
@@ -51,10 +50,9 @@ public class GestorViajeros {
       this.cantidad++;
    }
    
-   public void mostrarViajero ()
+   public void mostrarViajero (Scanner in)
    {
       Integer numero, i;
-      Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero del viajero: ");
       try {
          numero = in.nextInt();
@@ -86,10 +84,9 @@ public class GestorViajeros {
       return i;
    }
 
-   public void mostrarMillas()
+   public void mostrarMillas(Scanner in)
    {
       Integer numero, i;
-      Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero del viajero: ");
       try {
          numero = in.nextInt();
@@ -105,11 +102,10 @@ public class GestorViajeros {
          System.out.println("El viajero: " + grViajeros[i].getNombre() + " tiene :" + grViajeros[i].getMillas() + " millas.");
       }
    }
-   
-   public void acumularMillas()
+
+   public void acumularMillas(Scanner in)
    {
       Integer numero, i, millas;
-      Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero del viajero: ");
       numero = in.nextInt();
       in.nextLine();
@@ -122,10 +118,9 @@ public class GestorViajeros {
       }
    }
 
-   public void canjearMillas()
+   public void canjearMillas(Scanner in)
    {
       Integer numero, i, millas, aux;
-      Scanner in = new Scanner(System.in);
       System.out.println("Ingrese el numero del viajero: ");
       try {
          numero = in.nextInt();
