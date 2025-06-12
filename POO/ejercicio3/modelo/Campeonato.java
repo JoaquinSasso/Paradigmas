@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import excepciones.IntegrantesInvalidosException;
 import interfaces.IDeporte;
 
 
@@ -21,10 +23,17 @@ public class Campeonato {
             while ((linea = bufferLectura.readLine()) != null) {
                 // Separar la linea leída con el separador definido previamente
                 String[] campos = linea.split(SEPARADOR);
-                Deportista d = new Deportista(campos[0], campos[1]);
-             datos.add(d);           
+                try {
+                    Deportista d = new Deportista(campos[0], campos[1]);
+                    datos.add(d);
+                }
+                catch (IllegalArgumentException e) {
+                    System.out.println("Error al crear el deportista: " + e.getMessage());
+                    continue; // Saltar a la siguiente línea si hay un error
+                }
+                finally {}
             }
-        } 
+        }
         catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -45,21 +54,25 @@ public class Campeonato {
     public static List<IDeporte> creaEquipos(List<Deportista> datos, int cantidadJugadores) {
         List<IDeporte> equipos = new ArrayList<>();
         List<Deportista> integrantes = new ArrayList<>();
-        
+
         for (Deportista d : datos) {
             integrantes.add(d);
             if (integrantes.size() == cantidadJugadores) {
                 Equipo equipo = new Equipo("Equipo " + (equipos.size() + 1));
-                if (equipo.conformar(integrantes)) {
+                try {
+                    equipo.conformar(integrantes);
                     equipos.add(equipo);
+                } catch (IntegrantesInvalidosException e) {
+                    System.out.println("Error al conformar el equipo: " + e.getMessage());
+                    continue; // Saltar a la siguiente iteración si hay un error
+                } finally {
+                    integrantes.clear(); // Reiniciar la lista de integrantes para el próximo equipo
                 }
-                integrantes.clear(); // Reiniciar la lista de integrantes para el próximo equipo
             }
         }
-        
         return equipos;
-        
     }
+
     /**
     Crea los equipos con los datos pasados como parámetro
      * @param datos es una lista con todos los deportitas inscriptos
@@ -73,12 +86,20 @@ public class Campeonato {
             integrantes.add(d);
             if (integrantes.size() == 2) {
                 Pareja pareja = new Pareja();
-                if (pareja.conformar(integrantes)) {
+                try {
+                    pareja.conformar(integrantes);
                     parejas.add(pareja);
                 }
-                integrantes.clear(); // Reiniciar la lista de integrantes para la próxima pareja
+                catch (IntegrantesInvalidosException e) {
+                    System.out.println("Error al conformar la pareja: " + e.getMessage());
+                    continue; // Saltar a la siguiente pareja si hay un error
+                }
+                finally {
+                    integrantes.clear(); // Reiniciar la lista de integrantes para la próxima pareja
+                }
             }
         }
+        
         return parejas;
         
     }
