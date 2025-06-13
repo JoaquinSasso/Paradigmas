@@ -4,10 +4,15 @@ public class Palabra {
       private String palabra;
       private Integer cantidadVeces;
 
-      public Palabra(String palabra)
+      public Palabra(String palabra, Integer cantidadVeces)
       {
          this.palabra = palabra;
-         this.cantidadVeces = 0;
+         this.cantidadVeces = cantidadVeces;
+      }
+
+      public Palabra(String palabra) {
+         this.palabra = palabra;
+         this.cantidadVeces = 1;
       }
 
       public String getPalabra() {
@@ -23,5 +28,14 @@ public class Palabra {
       
       public void aumentarCantidadVeces() {
          this.cantidadVeces++;
+      }
+
+      public void setCantidadVeces(Integer cantidadVeces) {
+         this.cantidadVeces = cantidadVeces;
+      }
+
+      @Override
+      public String toString() {
+         return "Palabra: " + palabra + " cantidad: " + cantidadVeces;
       }
 }
